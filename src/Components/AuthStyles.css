@@ -1,0 +1,182 @@
+/* src/Components/AuthStyles.css */
+
+/* Cores Principais baseadas no PDF [cite: 212, 213, 214] */
+:root {
+  --color-primary: #5B21B6; /* Roxo Escuro (Botão de Ação)  */
+  --color-lavender-dark: #A78BFA; /* Lavanda Escura [cite: 213] */
+  --color-lavender-light: #C4B5FD; /* Lavanda Clara (Inputs/Links) [cite: 214] */
+  --color-text-light: #FFFFFF; /* Texto Geral */
+  --color-background: #000000; /* Fundo Preto  */
+}
+
+/* Container Principal */
+.auth-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Garante que o container use a tela inteira */
+  min-height: 100vh;
+  padding: 40px 20px; 
+  background-color: var(--color-background);
+  color: var(--color-text-light);
+  text-align: center;
+}
+
+/* Texto do Logo  */
+.logo-text {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: var(--color-lavender-dark);
+}
+
+/* Boas-vindas */
+.welcome-section {
+  margin: 30px 0 50px; /* Mais margem inferior para separar do botão */
+}
+
+.welcome-title {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  /* Texto "Olá, seja bem-vindo!" [cite: 217] ou "Bem-vindo de volta!" [cite: 226] */
+}
+
+.welcome-text {
+  font-size: 1.1rem;
+  color: #ccc;
+  max-width: 350px;
+  /* Texto descritivo [cite: 218, 219] */
+}
+
+.welcome-text-small {
+  font-size: 1rem;
+  color: #ccc;
+  margin-bottom: 25px; 
+  /* "Faça o login para continuar" [cite: 227] */
+}
+
+/* Formulário e Inputs */
+.auth-form {
+  width: 100%;
+  max-width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.auth-form label {
+  margin-top: 15px;
+  margin-bottom: 5px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  /* Títulos de input como "Nome de usuário" [cite: 228] */
+}
+
+.lavender-input {
+  width: 100%;
+  padding: 15px 20px;
+  border: none;
+  border-radius: 50px; /* Borda arredondada (mais que 999px) [cite: 228, 229] */
+  background-color: var(--color-lavender-light);
+  color: #000;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* Botões */
+.button-group {
+  width: 100%;
+  max-width: 350px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin: 40px 0 30px;
+}
+
+.primary-button {
+  width: 100%; /* Força largura total para ambos os botões [cite: 220, 221] */
+  padding: 18px 20px; /* Um pouco mais de padding vertical para parecer mais cheio */
+  border: none;
+  border-radius: 50px; /* Borda arredondada [cite: 220, 221, 232] */
+  background-color: var(--color-primary);
+  color: var(--color-text-light);
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.primary-button:hover {
+  background-color: #4a1999; 
+}
+
+.full-width {
+  width: 100%;
+}
+
+.margin-top-large {
+    margin-top: 30px;
+}
+
+/* Login Social */
+.social-login {
+  margin-top: 20px;
+}
+
+.social-login p {
+  font-size: 1rem;
+  color: #aaa;
+  /* "Ou entre usando sua conta Google" [cite: 222] */
+}
+
+.google-icon-wrapper {
+  display: inline-block;
+  margin-top: 15px;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  border: 1px solid var(--color-lavender-dark);
+  border-radius: 50%;
+  background-color: var(--color-lavender-dark); /* Fundo do G para maior contraste */
+}
+
+.google-icon {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #fff;
+  /* O ícone 'G' [cite: 223] */
+}
+
+/* Opções de Login */
+.login-options {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  margin: 15px 0;
+}
+
+/* Estilo do Checkbox 'Lembre de mim' [cite: 230] */
+.login-options input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin-right: 5px;
+  /* Ajuste a cor de fundo aqui se desejar um estilo personalizado, 
+     mas o padrão do navegador costuma ser suficiente */
+}
+
+.link-text {
+  color: var(--color-lavender-light);
+  text-decoration: none;
+  /* "Esqueceu a senha?" [cite: 231] e "Cadastre-se" [cite: 233] */
+}
+
+.link-text:hover {
+  text-decoration: underline;
+}
+
+.no-account {
+  margin-top: 25px;
+  font-size: 1rem;
+}
