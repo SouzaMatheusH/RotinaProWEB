@@ -1,0 +1,102 @@
+/* src/Components/HabitCalendarPageStyle.css */
+
+/* ------------------------------------------- */
+/* 1. CENTRALIZAÇÃO DA PÁGINA                  */
+/* ------------------------------------------- */
+
+.calendar-wrapper {
+    max-width: 500px;
+    width: 90%; 
+    margin: 0 auto;
+    text-align: left;
+    
+    /* Configurações para gerenciar o fluxo principal */
+    display: flex; 
+    flex-direction: column; 
+    /* Manterá o header no topo e o body centralizado verticalmente */
+}
+
+.calendar-header {
+    /* Configuração para alinhar o mês e o botão em extremidades */
+    display: flex;
+    justify-content: space-between; /* Empurra o mês para a esquerda e o botão para a direita */
+    align-items: center; /* Centraliza os itens verticalmente na linha do header */
+    margin-bottom: 30px; 
+    width: 100%;
+}
+
+/* ------------------------------------------- */
+/* 2. BOTÃO NOVO HÁBITO NO HEADER              */
+/* ------------------------------------------- */
+
+.header-new-habit-button {
+    background-color: #000000; /* Assume que AuthStyles.css define --color-primary */
+    color: white;
+    border: 1px solid #4a1999;
+    padding: 8px 15px; 
+    border-radius: 5px; 
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+.header-new-habit-button:hover {
+    background-color: #4a1999;
+}
+
+
+/* ------------------------------------------- */
+/* 3. CENTRALIZAÇÃO DO CORPO DO CALENDÁRIO     */
+/* ------------------------------------------- */
+
+.calendar-body-content {
+    /* Ocupa o restante do espaço disponível verticalmente */
+    flex-grow: 1; 
+    /* Transforma este container no eixo de centralização vertical */
+    display: flex; 
+    flex-direction: column;
+    justify-content: center; /* CENTRALIZA VERTICALMENTE o calendário restante */
+    align-items: center; /* Centraliza horizontalmente o calendário restante */
+    width: 100%;
+}
+
+.calendar-box {
+    padding: 20px;
+    background-color: #111;
+    border-radius: 10px;
+    width: 100%; 
+    max-width: 500px;
+}
+
+
+/* ------------------------------------------- */
+/* 4. ESTILO DA GRID DO CALENDÁRIO             */
+/* ------------------------------------------- */
+
+.calendar-grid {
+    display: grid; 
+    grid-template-columns: repeat(7, 1fr); /* 7 colunas iguais */
+    gap: 5px; 
+    text-align: center;
+}
+
+.calendar-day-header {
+    color: var(--color-lavender-light); /* Assume que AuthStyles.css define a cor */
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.calendar-day-cell {
+    width: 100%; 
+    height: 40px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 5px 0;
+}
+

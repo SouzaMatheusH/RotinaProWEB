@@ -1,0 +1,223 @@
+/* src/Components/HabitModalStyle.css */
+
+/* ======================================================== */
+/* 1. ESTRUTURA GERAL DO MODAL (APLICÁVEL AOS DOIS POP-UPS) */
+/* ======================================================== */
+
+/* Fundo Escuro que Bloqueia a Tela */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.85); /* Fundo preto semi-transparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Garante que fique acima de todo o conteúdo */
+}
+
+/* Caixa do Modal (Popup) */
+.modal-content {
+    background-color: #1a1a1a; /* Cor de fundo escura do modal */
+    padding: 30px 25px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 380px; /* Largura para simular mobile/modal */
+    position: relative;
+    color: white;
+    text-align: left;
+}
+
+/* Botão de Fechar (X) */
+.modal-close-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: #ccc;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* Títulos Comuns */
+.modal-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+/* Labels Comuns do Formulário de Criação */
+.modal-label {
+    font-size: 1.1rem;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+/* Input de Compromisso (Criação de Hábito) */
+.modal-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #333;
+    border-radius: 8px;
+    background-color: #222;
+    color: white;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+/* ======================================================== */
+/* 2. ESTILOS DO MODAL DE CRIAÇÃO (Recorrência)            */
+/* ======================================================== */
+
+/* Lista de Recorrência (Dias da Semana) */
+.recurrence-item {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.recurrence-item label {
+    font-size: 1rem;
+    margin-left: 10px;
+    cursor: pointer;
+    flex-grow: 1;
+}
+
+.recurrence-item input[type="checkbox"] {
+    /* Esconde o checkbox padrão */
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* Custom Checkbox (Quadrado) */
+.custom-checkbox {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #555;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.recurrence-item input[type="checkbox"]:checked + .custom-checkbox {
+    background-color: #2ECC71; /* Cor verde para checado */
+    border-color: #2ECC71;
+}
+
+.custom-checkbox-icon {
+    color: white;
+    font-size: 0.9rem;
+    opacity: 0; 
+}
+
+.recurrence-item input[type="checkbox"]:checked + .custom-checkbox .custom-checkbox-icon {
+    opacity: 1; 
+}
+
+/* Botão Confirmar */
+.modal-confirm-button {
+    width: 100%;
+    background-color: #2ECC71; /* Cor verde de confirmação */
+    color: white;
+    border: none;
+    padding: 15px 0;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 30px;
+    transition: background-color 0.3s;
+}
+
+.modal-confirm-button:hover {
+    background-color: #27ae60;
+}
+
+/* ======================================================== */
+/* 3. ESTILOS DO MODAL DE CHECKLIST DIÁRIA                  */
+/* ======================================================== */
+
+.checklist-header {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    /* Linha que separa o cabeçalho da lista */
+    border-bottom: 1px solid #333; 
+}
+
+.checklist-day {
+    font-size: 0.9rem;
+    color: #ccc;
+    margin-bottom: 5px;
+}
+
+.checklist-date {
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+}
+
+/* Barra de Progresso (similar ao design) */
+.progress-bar-container {
+    width: 100%;
+    height: 8px;
+    background-color: #333; /* Fundo cinza escuro */
+    border-radius: 4px;
+    margin-top: 15px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    /* Usa a cor primária roxa do tema */
+    background-color: var(--color-primary); 
+    transition: width 0.3s ease;
+}
+
+/* Estilo para cada item da checklist */
+.checklist-item {
+    display: flex;
+    align-items: center;
+    margin: 15px 0;
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: white;
+}
+
+.checklist-item-text {
+    margin-left: 15px;
+    flex-grow: 1;
+}
+
+/* Custom Checkbox para a Checklist Diária */
+.checklist-checkbox {
+    width: 25px;
+    height: 25px;
+    border: 2px solid #555;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+/* Mapeia a classe 'completed' adicionada via React */
+.checklist-item.completed .checklist-checkbox {
+    background-color: #2ECC71; 
+    border-color: #2ECC71;
+}
+
+.checklist-checkbox-icon {
+    color: white;
+    font-size: 1.2rem;
+    opacity: 0;
+}
+
+.checklist-item.completed .checklist-checkbox-icon {
+    opacity: 1;
+}

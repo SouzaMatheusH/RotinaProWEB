@@ -101,7 +101,7 @@ const HomePage = () => {
                 <div style={{marginTop: '40px', padding: '20px', border: '1px solid #333', borderRadius: '15px', backgroundColor: '#111'}}>
                     <h3 style={{color: 'var(--color-lavender-light)'}}>Hábitos de Hoje</h3>
                     <p style={{color: '#ccc'}}>Aqui será o calendário e a lista de hábitos a serem marcados.</p>
-                    <Link to="/dashboard" className="link-text">Ir para Dashboard (Exemplo)</Link>
+                    <Link to="/HabitCalendarPage" className="link-text">Ir para Dashboard (Exemplo)</Link>
                 </div>
 
                 {/* Botão de Logout */}

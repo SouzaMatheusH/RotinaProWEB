@@ -180,3 +180,19 @@
   margin-top: 25px;
   font-size: 1rem;
 }
+
+/* src/Components/AuthStyles.css (Adicione estes novos estilos) */
+
+/* Estilo para a imagem do Logo */
+.logo-image {
+  /* Defina o tamanho máximo para que ele se ajuste bem na tela mobile e web */
+  max-width: 150px; 
+  height: auto;
+  margin-bottom: 20px; /* Espaço abaixo do logo e antes da saudação */
+}
+
+/* Remova ou ajuste o estilo anterior do H1, se ele estiver interferindo */
+.logo-text {
+  display: none; /* Esconde o H1 se ele ainda estiver sendo renderizado em outros lugares */
+  /* Ou mantenha-o, mas ajuste o tamanho para a imagem dominar o topo */
+}

@@ -11,7 +11,7 @@ import InitialPage from './Pages/Auth/InitialPage';
 import LoginPage from './Pages/Auth/LoginPage';
 import RegisterPage from './Pages/Auth/RegisterPage';
 import HomePage from './Pages/HomePage'; // NOVA
-import DashboardPage from './Pages/DashboardPage';
+import HabitCalendarPage from './Pages/HabitCalendarPage';
 import NotFoundPage from './Pages/NotFoundPage';
 
 // Hook personalizado para gerenciar o estado do usuário
@@ -61,8 +61,8 @@ function App() {
                 />
                 
                 <Route 
-                    path="/dashboard" 
-                    element={loggedIn ? <DashboardPage /> : <Navigate to="/login" />} 
+                    path="/HabitCalendarPage" 
+                    element={loggedIn ? <HabitCalendarPage /> : <Navigate to="/login" />} 
                 />
 
                 {/* Rota final: 404 */}

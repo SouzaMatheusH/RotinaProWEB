@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import PrimaryButton from '../../Components/Auth/PrimaryButton';
+import RotinaProLogo from '../../assets/logo.png';
 import LavenderInput from '../../Components/Auth/LavenderInput';
 import '../../Components/AuthStyles.css';
 import { 
@@ -78,7 +79,7 @@ const RegisterPage = () => {
 
   return (
     <div className="auth-container">
-      <h1 className="logo-text">ROTINA PRO</h1>
+      <img src={RotinaProLogo} alt="" className='logo-image'/>
       <h2 className="welcome-title">Crie sua conta!</h2>
 
       <form onSubmit={handleSubmit} className="auth-form">

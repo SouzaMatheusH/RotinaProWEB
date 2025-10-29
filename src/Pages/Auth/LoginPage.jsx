@@ -5,6 +5,7 @@ import PrimaryButton from '../../Components/Auth/PrimaryButton';
 import LavenderInput from '../../Components/Auth/LavenderInput';
 import '../../Components/AuthStyles.css'; 
 import { auth, signInWithEmailAndPassword, signInWithPopup, googleProvider } from '../../firebaseConfig'; 
+import RotinaProLogo from '../../assets/logo.png';
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -47,7 +48,7 @@ const LoginPage = () => {
 
   return (
     <div className="auth-container">
-      <h1 className="logo-text">ROTINA PRO</h1>
+      <img src={RotinaProLogo} alt="" className='logo-image'/>
       <h2 className="welcome-title">Bem-vindo de volta!</h2>
       <p className="welcome-text-small">Faça o login para continuar</p>
 
