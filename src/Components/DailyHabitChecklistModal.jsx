@@ -8,7 +8,8 @@ import {
     doc, setDoc, deleteDoc
 } from '../firebaseConfig'; 
 
-const DailyHabitChecklistModal = ({ isOpen, onClose, day, month, year }) => {
+// Adicione onChecklistUpdated como prop
+const DailyHabitChecklistModal = ({ isOpen, onClose, day, month, year, onChecklistUpdated }) => {
     // Estados
     const [checklistItems, setChecklistItems] = useState([]); 
     const [progress, setProgress] = useState(0);
@@ -27,8 +28,8 @@ const DailyHabitChecklistModal = ({ isOpen, onClose, day, month, year }) => {
         const dateObj = new Date(y, m - 1, d);
         return dateObj.toISOString().split('T')[0];
     }, []);
-    
-    // Usamos useCallback para que a função seja estável nas dependências do useEffect
+
+    // Função que busca Hábitos e Conclusões (Completa)
     const fetchHabitsAndCompletions = useCallback(async () => {
         if (!user || !day) return;
 
@@ -82,7 +83,7 @@ const DailyHabitChecklistModal = ({ isOpen, onClose, day, month, year }) => {
         } finally {
             setLoading(false);
         }
-    }, [user, day, month, year, getFormattedDate]); // Dependências do useCallback
+    }, [user, day, month, year, getFormattedDate]);
 
     // Função que salva ou remove o registro de conclusão
     const saveCompletionStatus = async (habitId, isCompleted) => {
@@ -91,18 +92,19 @@ const DailyHabitChecklistModal = ({ isOpen, onClose, day, month, year }) => {
 
         try {
             const completionsRef = collection(db, "completions");
+            
+            // Busca o documento existente para deletar ou atualizar
             const q = query(
                 completionsRef, 
                 where("userId", "==", user.uid),
                 where("habitId", "==", habitId),
                 where("date", "==", formattedDate)
             );
-            
             const snapshot = await getDocs(q);
             const existingDoc = snapshot.docs[0];
 
             if (isCompleted) {
-                // SE MARCAR (Cria o registro)
+                // MARCAR: Cria o registro (usando addDoc implicitamente via setDoc(doc(ref)) )
                 if (!existingDoc) {
                     await setDoc(doc(completionsRef), { 
                         userId: user.uid,
@@ -113,20 +115,25 @@ const DailyHabitChecklistModal = ({ isOpen, onClose, day, month, year }) => {
                     });
                 }
             } else {
-                // SE DESMARCAR (Remove o registro)
+                // DESMARCAR: Remove o registro
                 if (existingDoc) {
                     await deleteDoc(existingDoc.ref);
                 }
             }
 
             // === PONTO CRÍTICO DE CORREÇÃO ===
-            // FORÇA A BUSCA COMPLETA NOVAMENTE PARA ATUALIZAR O ESTADO A PARTIR DO FIRESTORE
+            // 1. FORÇA O RECARREGAMENTO DOS DADOS DO FIRESTORE
             await fetchHabitsAndCompletions(); 
+
+            // 2. NOTIFICA O COMPONENTE PAI (HabitCalendarPage) PARA ATUALIZAR O SCORE/BRILHO
+            if (onChecklistUpdated) {
+                onChecklistUpdated();
+            }
             // =================================
 
         } catch (error) {
             console.error("Erro ao salvar o status de conclusão:", error);
-            alert("Falha ao registrar a conclusão.");
+            alert("Falha ao registrar a conclusão. Verifique as regras de segurança.");
         } finally {
             setIsMarking(false);
         }
@@ -142,28 +149,30 @@ const DailyHabitChecklistModal = ({ isOpen, onClose, day, month, year }) => {
 
 
     // **********************************************
-    // HOOKS
+    // HOOKS (Controle de Progresso e Recarregamento)
     // **********************************************
 
-    // 1. Calcula o progresso toda vez que a checklist muda
+    // 1. Calcula o progresso toda vez que a checklist muda localmente (após fetch/marcação)
     useEffect(() => {
         const completedCount = checklistItems.filter(item => item.completed).length;
         const totalCount = checklistItems.length;
         setProgress((totalCount > 0 ? (completedCount / totalCount) : 0) * 100);
     }, [checklistItems]); 
 
-    // 2. Busca os dados sempre que o modal abre ou a data muda
+    // 2. Busca os dados no Firestore sempre que o modal abre ou a data muda
     useEffect(() => {
         if (isOpen && day !== null) {
             fetchHabitsAndCompletions(); 
         }
-    }, [isOpen, day, month, year, fetchHabitsAndCompletions]); // Dependência atualizada
+    }, [isOpen, day, month, year, fetchHabitsAndCompletions]); 
+
 
     // **********************************************
     // RENDERIZAÇÃO
     // **********************************************
     if (!isOpen || day === null) return null; 
 
+    // Formata a data e o dia da semana para exibição
     const fullDate = new Date(year, month - 1, day);
     const dayName = fullDate.toLocaleDateString('pt-BR', { weekday: 'long' });
     const formattedDate = `${String(day).padStart(2, '0')}/${String(month).padStart(2, '0')}`;

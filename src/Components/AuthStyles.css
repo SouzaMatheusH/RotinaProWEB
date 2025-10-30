@@ -196,3 +196,22 @@
   display: none; /* Esconde o H1 se ele ainda estiver sendo renderizado em outros lugares */
   /* Ou mantenha-o, mas ajuste o tamanho para a imagem dominar o topo */
 }
+
+/* src/Components/AuthStyles.css (ADICIONE NO FINAL) */
+
+/* Efeito de Brilho (Pulsação) para as Estrelas */
+@keyframes star-pulse {
+    0% {
+        opacity: 0.2;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.2);
+        box-shadow: 0 0 8px 2px var(--color-lavender-dark);
+    }
+    100% {
+        opacity: 0.2;
+        transform: scale(1);
+    }
+}

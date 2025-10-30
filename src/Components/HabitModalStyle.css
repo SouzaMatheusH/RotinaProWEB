@@ -11,20 +11,20 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.85); /* Fundo preto semi-transparente */
+    background-color: rgba(0, 0, 0, 0.85);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000; /* Garante que fique acima de todo o conteúdo */
+    z-index: 1000;
 }
 
 /* Caixa do Modal (Popup) */
 .modal-content {
-    background-color: #1a1a1a; /* Cor de fundo escura do modal */
+    background-color: #1a1a1a;
     padding: 30px 25px;
     border-radius: 12px;
     width: 90%;
-    max-width: 380px; /* Largura para simular mobile/modal */
+    max-width: 380px;
     position: relative;
     color: white;
     text-align: left;
@@ -60,6 +60,7 @@
 .modal-input {
     width: 100%;
     padding: 12px 15px;
+    margin-bottom: 1em;
     border: 1px solid #333;
     border-radius: 8px;
     background-color: #222;
@@ -69,58 +70,81 @@
 }
 
 /* ======================================================== */
-/* 2. ESTILOS DO MODAL DE CRIAÇÃO (Recorrência)            */
+/* 2. ESTILOS DO MODAL DE CRIAÇÃO (Botões de Recorrência)  */
 /* ======================================================== */
 
-/* Lista de Recorrência (Dias da Semana) */
+/* Container de cada item da lista (para espaçamento) */
 .recurrence-item {
     display: flex;
     align-items: center;
     margin: 10px 0;
+    /* Alinha o único item (label) ao topo */
+    justify-content: flex-start;
 }
 
-.recurrence-item label {
-    font-size: 1rem;
-    margin-left: 10px;
-    cursor: pointer;
-    flex-grow: 1;
-}
-
-.recurrence-item input[type="checkbox"] {
-    /* Esconde o checkbox padrão */
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-/* Custom Checkbox (Quadrado) */
-.custom-checkbox {
-    width: 20px;
-    height: 20px;
-    border: 2px solid #555;
-    border-radius: 4px;
+/* O LABEL PRINCIPAL QUE ATUA COMO O BOTÃO GRANDE */
+.recurrence-label {
+    /* CORRIGIDO: Estilizado como o retângulo do design */
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: flex-start; 
+    
+    width: 100%;
+    padding: 10px 15px; 
+    border-radius: 8px; 
+    cursor: pointer;
+    
+    /* Cores Padrão (Não Marcado) */
+    background-color: #333; 
+    border: 1px solid #444; 
+    color: white;
+    font-size: 1rem;
     transition: background-color 0.2s, border-color 0.2s;
 }
 
-.recurrence-item input[type="checkbox"]:checked + .custom-checkbox {
-    background-color: #2ECC71; /* Cor verde para checado */
+/* ESTADO MARCADO (VERDE) */
+.recurrence-label.checked-bg {
+    background-color: #2ECC71; /* Cor verde para o retângulo */
     border-color: #2ECC71;
+    font-weight: bold;
 }
 
-.custom-checkbox-icon {
+/* INPUT REAL (ESCONDIDO) */
+.recurrence-item input[type="checkbox"] {
+    display: none; /* Esconde completamente o input real */
+}
+
+
+/* Estilo para a caixa do Ícone de Check (para posicionamento do V) */
+.recurrence-icon-box {
+    width: 20px; 
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px; /* Espaçamento entre o ícone e o texto do dia */
+}
+
+/* Ícone de Check */
+.custom-check-icon {
+    font-size: 1.2rem;
     color: white;
-    font-size: 0.9rem;
-    opacity: 0; 
+    opacity: 0; /* Ícone escondido por padrão */
 }
 
-.recurrence-item input[type="checkbox"]:checked + .custom-checkbox .custom-checkbox-icon {
+/* Mostra o check SOMENTE quando a classe checked-bg está presente */
+.recurrence-label.checked-bg .custom-check-icon {
     opacity: 1; 
 }
 
-/* Botão Confirmar */
+/* O texto do dia da semana */
+.recurrence-day-text {
+    /* Ocupa o restante do espaço */
+    flex-grow: 1; 
+}
+
+
+/* Botão Confirmar (A cor deve ser a mesma do estado marcado) */
 .modal-confirm-button {
     width: 100%;
     background-color: #2ECC71; /* Cor verde de confirmação */
@@ -140,13 +164,12 @@
 }
 
 /* ======================================================== */
-/* 3. ESTILOS DO MODAL DE CHECKLIST DIÁRIA                  */
+/* 3. ESTILOS DO MODAL DE CHECKLIST DIÁRIA (INALTERADOS)    */
 /* ======================================================== */
 
 .checklist-header {
     margin-bottom: 25px;
     padding-bottom: 15px;
-    /* Linha que separa o cabeçalho da lista */
     border-bottom: 1px solid #333; 
 }
 
@@ -162,11 +185,10 @@
     color: white;
 }
 
-/* Barra de Progresso (similar ao design) */
 .progress-bar-container {
     width: 100%;
     height: 8px;
-    background-color: #333; /* Fundo cinza escuro */
+    background-color: #333;
     border-radius: 4px;
     margin-top: 15px;
     overflow: hidden;
@@ -174,12 +196,10 @@
 
 .progress-bar-fill {
     height: 100%;
-    /* Usa a cor primária roxa do tema */
     background-color: var(--color-primary); 
     transition: width 0.3s ease;
 }
 
-/* Estilo para cada item da checklist */
 .checklist-item {
     display: flex;
     align-items: center;
@@ -194,7 +214,6 @@
     flex-grow: 1;
 }
 
-/* Custom Checkbox para a Checklist Diária */
 .checklist-checkbox {
     width: 25px;
     height: 25px;
@@ -203,10 +222,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-shrink: 0;
     transition: background-color 0.2s, border-color 0.2s;
 }
 
-/* Mapeia a classe 'completed' adicionada via React */
 .checklist-item.completed .checklist-checkbox {
     background-color: #2ECC71; 
     border-color: #2ECC71;

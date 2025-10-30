@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react';
 import './HabitModalStyle.css';
-import { auth, db } from '../firebaseConfig'; 
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore'; 
+import { auth, db } from '../firebaseConfig';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 const WEEK_DAYS = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
 
@@ -15,21 +15,21 @@ const saveNewHabit = async (habitData) => {
     }
 
     try {
-        // CORREÇÃO APLICADA: Referencia a COLEÇÃO RAIZ "habits"
+        // Referencia a COLEÇÃO RAIZ "habits"
         const habitsCollectionRef = collection(db, "habits");
 
         // 'addDoc' cria um novo documento na coleção 'habits'
         await addDoc(habitsCollectionRef, {
-            // NOVO CAMPO DE VÍNCULO: O UID é adicionado ao documento
-            userId: user.uid, 
-            
+            // CAMPO DE VÍNCULO: O UID é adicionado ao documento
+            userId: user.uid,
+
             name: habitData.commitment,
-            recurrence: habitData.recurrence, 
+            recurrence: habitData.recurrence,
             createdAt: serverTimestamp(),
-            lastMarked: null, 
+            lastMarked: null,
             streak: 0,
         });
-        
+
         return true;
 
     } catch (error) {
@@ -49,7 +49,7 @@ const CreateHabitModal = ({ isOpen, onClose, onHabitAdded }) => {
 
     // Lógica para marcar/desmarcar o dia
     const toggleDayRecurrence = (dayIndex) => {
-        setRecurrence(prevRecurrence => 
+        setRecurrence(prevRecurrence =>
             prevRecurrence.includes(dayIndex)
                 ? prevRecurrence.filter(i => i !== dayIndex)
                 : [...prevRecurrence, dayIndex].sort((a, b) => a - b)
@@ -59,7 +59,7 @@ const CreateHabitModal = ({ isOpen, onClose, onHabitAdded }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
-        
+
         if (!commitment.trim()) {
             setError("O comprometimento é obrigatório.");
             return;
@@ -72,10 +72,10 @@ const CreateHabitModal = ({ isOpen, onClose, onHabitAdded }) => {
         setLoading(true);
         try {
             await saveNewHabit({ commitment, recurrence });
-            
+
             setCommitment('');
             setRecurrence([1, 2, 3, 4, 5]);
-            onHabitAdded(); 
+            onHabitAdded();
             onClose();
 
         } catch (err) {
@@ -86,7 +86,6 @@ const CreateHabitModal = ({ isOpen, onClose, onHabitAdded }) => {
     };
 
     return (
-        // ... (JSX do Modal permanece o mesmo)
         <div className="modal-overlay">
             <div className="modal-content">
                 <button className="modal-close-button" onClick={onClose}>
@@ -96,7 +95,7 @@ const CreateHabitModal = ({ isOpen, onClose, onHabitAdded }) => {
 
                 <form onSubmit={handleSubmit}>
                     <label className="modal-label">Qual seu comprometimento?</label>
-                    <input 
+                    <input
                         className="modal-input"
                         type="text"
                         placeholder="Exercícios, dormir bem, etc..."
@@ -108,24 +107,37 @@ const CreateHabitModal = ({ isOpen, onClose, onHabitAdded }) => {
                     <label className="modal-label">Qual a recorrência?</label>
                     {WEEK_DAYS.map((day, index) => (
                         <div key={index} className="recurrence-item">
-                            <input
-                                type="checkbox"
-                                id={`day-${index}`}
-                                checked={recurrence.includes(index)}
-                                onChange={() => toggleDayRecurrence(index)}
-                                disabled={loading}
-                            />
-                            <label htmlFor={`day-${index}`} className="custom-checkbox">
-                                <span className="custom-checkbox-icon">✓</span>
+                            {/* O LABEL SERVE COMO O BOTÃO RETANGULAR GRANDE */}
+                            <label htmlFor={`day-${index}`} 
+                                   className={`recurrence-label ${recurrence.includes(index) ? 'checked-bg' : ''}`}
+                                   onClick={(e) => {
+                                       e.preventDefault(); // Impede o clique duplo
+                                       toggleDayRecurrence(index);
+                                   }}
+                                   > 
+                                {/* INPUT REAL (ESCONDIDO) */}
+                                <input
+                                    type="checkbox"
+                                    id={`day-${index}`}
+                                    checked={recurrence.includes(index)}
+                                    onChange={() => toggleDayRecurrence(index)}
+                                    disabled={loading}
+                                />
+                                
+                                {/* CONTEÚDO VISÍVEL DO BOTÃO */}
+                                <span className="recurrence-icon-box">
+                                    <span className="custom-check-icon">✓</span>
+                                </span>
+                                
+                                <span className="recurrence-day-text">{day}</span>
                             </label>
-                            <label htmlFor={`day-${index}`}>{day}</label>
                         </div>
                     ))}
 
                     {error && <p style={{ color: 'red', fontSize: '0.9rem', marginTop: '15px' }}>{error}</p>}
-                    
-                    <button 
-                        type="submit" 
+
+                    <button
+                        type="submit"
                         className="modal-confirm-button"
                         disabled={loading}
                     >
@@ -134,7 +146,6 @@ const CreateHabitModal = ({ isOpen, onClose, onHabitAdded }) => {
                 </form>
             </div>
         </div>
-        // ...
     );
 };
 
