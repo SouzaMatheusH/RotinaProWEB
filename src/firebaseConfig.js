@@ -6,10 +6,10 @@ import {
     createUserWithEmailAndPassword, 
     signInWithEmailAndPassword, 
     GoogleAuthProvider, 
-    signInWithPopup, 
+    signInWithPopup,    // <-- Manter Pop-up
     signOut,
-    onAuthStateChanged,
-    getRedirectResult 
+    onAuthStateChanged
+    // Removido: getRedirectResult, signInWithRedirect
 } from "firebase/auth";
 import { 
     getFirestore,
@@ -19,10 +19,11 @@ import {
     query, 
     getDocs,
     where,
-    deleteDoc // Incluído para remover o registro de conclusão
+    deleteDoc,
+    serverTimestamp
 } from "firebase/firestore"; 
 
-// Credenciais do usuário
+// Credenciais do usuário (Mantidas)
 const firebaseConfig = {
     apiKey: "AIzaSyB6uFEcx-cJwzD8tVkHcHPLUho9HirKsGo",
     authDomain: "autenticacao-189e7.firebaseapp.com",
@@ -44,15 +45,14 @@ export const db = getFirestore(app);
 // 4. Inicializa e EXPORTA o provedor do Google
 export const googleProvider = new GoogleAuthProvider();
 
-// 5. Exporta todos os métodos para uso nas Páginas
+// 5. Exporta os métodos para uso nas Páginas
 export { 
     // Métodos do Firebase Auth
     createUserWithEmailAndPassword, 
     signInWithEmailAndPassword,
-    signInWithPopup,
+    signInWithPopup, // <-- Exportado
     signOut,
     onAuthStateChanged,
-    getRedirectResult,
     
     // Métodos do Firestore
     doc,
@@ -61,5 +61,6 @@ export {
     query, 
     getDocs,
     where,
-    deleteDoc // <-- ESSENCIAL para a função deleteDoc
+    deleteDoc,
+    serverTimestamp
 };

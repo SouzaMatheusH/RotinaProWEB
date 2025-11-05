@@ -33,12 +33,6 @@ const InitialPage = () => {
         </PrimaryButton>
       </div>
 
-      <div className="social-login">
-        <p>Ou entre usando sua conta Google</p>
-        <div className="google-icon-wrapper">
-          <span className="google-icon">G</span>
-        </div>
-      </div>
     </div>
   );
 };
